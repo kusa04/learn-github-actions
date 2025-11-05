@@ -1,0 +1,26 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [main] # mainにpushされたとき
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # リポジトリのコードをworkflow環境にダウンロードするためのもの
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4 # 実行環境のsetup
+        with:
+          node-version: "20"
+          cache: "npm"
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
